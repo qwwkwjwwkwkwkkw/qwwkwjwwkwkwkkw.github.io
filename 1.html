@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Notification Example</title>
+</head>
+<body>
+
+<button onclick="showNotification()">点击显示通知</button>
+
+<script>
+    function showNotification() {
+        // 检查浏览器是否支持Notification
+        if ("Notification" in window) {
+            // 请求用户授权
+            Notification.requestPermission().then(function(permission) {
+                // 如果用户同意
+                if (permission === "granted") {
+                    // 创建并显示一个通知
+                    var notification = new Notification("你好！", {
+                        body: "这是一个来自网页的通知。",
+                        icon: "path/to/icon.png" // 可选，图标路径
+                    });
+                    
+                    notification.onclick = function(event) {
+                        event.preventDefault(); // 阻止默认行为，如可能的打开新标签页
+                        console.log("通知被点击了.");
+                    };
+                }
+            });
+        } else {
+            alert("当前浏览器不支持桌面通知功能。");
+        }
+    }
+</script>
+
+</body>
+</html>
